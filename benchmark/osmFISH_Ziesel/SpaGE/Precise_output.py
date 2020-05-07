@@ -10,7 +10,7 @@ matplotlib.rcParams['ps.fonttype'] = 42
 import matplotlib.pyplot as plt
 import seaborn as sns
 import sys
-sys.path.insert(1,'Scripts/SpaGE/')
+sys.path.insert(1,'SpaGE/')
 from principal_vectors import PVComputation
 
 with open ('data/SpaGE_pkl/osmFISH_Cortex.pkl', 'rb') as f:
