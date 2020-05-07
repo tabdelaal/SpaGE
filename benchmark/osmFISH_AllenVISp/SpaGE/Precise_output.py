@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import seaborn as sns
 import sys
-sys.path.insert(1,'Scripts/SpaGE/')
+sys.path.insert(1,'SpaGE/')
 from principal_vectors import PVComputation
 
 with open ('data/SpaGE_pkl/osmFISH_Cortex.pkl', 'rb') as f:
