@@ -7,6 +7,14 @@ Python implementation can be found in the 'SpaGE' folder. The ```SpaGE``` functi
 
 For full description, please check the ```SpaGE``` function description in ```main.py```.
 
+### Tutorial
+
+The ```SpaGE_Tutorial``` notebook is a step-by-step example showing how to validate SpaGE on the spatially measured genes, and how to use SpaGE to predict new spatial gene patterns.
+
+<p align="center">
+  <img src="New_predicted_genes.png" width="600">
+</p>
+
 ### Experiments code description
 
 The 'benchmark' folder contains the scripts to reproduce the results shown in the pre-print. The bencmark folder has five subfolders, each corresponds to one dataset-pair and contains the scripts to run SpaGE, Seurat-v3, Liger and gimVI. Additionally, we provide evaluation scripts to calculate and compare the performance of all four methods, and to reproduce all the figures in the pre-print.
