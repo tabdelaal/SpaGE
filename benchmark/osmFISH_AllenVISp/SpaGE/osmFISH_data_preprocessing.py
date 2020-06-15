@@ -37,11 +37,11 @@ def Log_Norm(x):
     return np.log(((x/np.sum(x))*np.median(cell_count)) + 1)
 
 osmFISH_data = osmFISH_data.apply(Log_Norm,axis=0)
-osmFIH_data_scaled = pd.DataFrame(data=st.zscore(osmFISH_data.T),index = osmFISH_data.columns,columns=osmFISH_data.index)
+osmFISH_data_scaled = pd.DataFrame(data=st.zscore(osmFISH_data.T),index = osmFISH_data.columns,columns=osmFISH_data.index)
 
 datadict = dict()
 datadict['osmFISH_data'] = osmFISH_data.T
-datadict['osmFIH_data_scaled'] = osmFIH_data_scaled
+datadict['osmFISH_data_scaled'] = osmFISH_data_scaled
 datadict['osmFISH_meta'] = osmFISH_meta
 
 with open('data/SpaGE_pkl/osmFISH_Cortex.pkl','wb') as f:
