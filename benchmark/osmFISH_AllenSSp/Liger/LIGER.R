@@ -11,6 +11,11 @@ allen <- as.matrix(x = allen)
 Genes_count = rowSums(allen > 0)
 allen <- allen[Genes_count>=10,]
 
+meta.data <- read.csv(file = "data/Allen_SSp/AllenSSp_metadata.csv",
+                      row.names = 1, stringsAsFactors = FALSE)
+ok.cells <- colnames(allen[,meta.data$class_label != 'Exclude'])
+allen <- allen[,ok.cells]
+
 # osmFISH
 osm <- H5File$new("data/osmFISH/osmFISH_SScortex_mouse_all_cells.loom")
 mat <- osm[['matrix']][,]
