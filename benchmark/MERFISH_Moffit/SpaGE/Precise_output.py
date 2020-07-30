@@ -71,3 +71,11 @@ plt.show()
 Importance = pd.Series(np.sum(pv_FISH_RNA.source_components_**2,axis=0),index=Common_data.columns)
 Importance.sort_values(ascending=False,inplace=True)
 Importance.index[0:50]
+
+### Technology specific Processes
+Effective_n_pv = sum(np.diag(pv_FISH_RNA.cosine_similarity_matrix_) > 0.3)
+
+# explained variance RNA
+np.sum(pv_FISH_RNA.source_explained_variance_ratio_[np.arange(Effective_n_pv)])*100
+# explained variance spatial
+np.sum(pv_FISH_RNA.target_explained_variance_ratio_[np.arange(Effective_n_pv)])*100
