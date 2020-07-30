@@ -106,16 +106,16 @@ ax.boxplot([SpaGE_Corr,Seurat_Corr, Liger_Corr,gimVI_Corr])
 
 y = SpaGE_Corr
 x = np.random.normal(1, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=1, alpha=0.2)
 y = Seurat_Corr
 x = np.random.normal(2, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=1, alpha=0.2)
 y = Liger_Corr
 x = np.random.normal(3, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=1, alpha=0.2)
 y = gimVI_Corr
 x = np.random.normal(4, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=1, alpha=0.2)
 
 plt.xticks((1,2,3,4),('SpaGE', 'Seurat', 'Liger','gimVI'),size=12)
 plt.yticks(size=8)
@@ -135,7 +135,7 @@ def Compare_Correlations(X,Y):
     cmap = Moran_Is
     ax.axvline(linestyle='--',color='gray')
     ax.axhline(linestyle='--',color='gray')
-    im = ax.scatter(X, Y, s=25, c=cmap)
+    im = ax.scatter(X, Y, s=1, c=cmap)
     im.set_cmap('seismic')
     plt.gca().set_ylim([-0.5,1])
     lims = [np.min([ax.get_xlim(), ax.get_ylim()]),  
@@ -144,31 +144,31 @@ def Compare_Correlations(X,Y):
     ax.set_aspect('equal')
     ax.set_xlim(lims)
     ax.set_ylim(lims)
-    plt.xticks(size=8)
-    plt.yticks(size=8)
+    plt.xticks((-0.4,-0.2,0,0.2,0.4,0.6,0.8,1),size=8)
+    plt.yticks((-0.4,-0.2,0,0.2,0.4,0.6,0.8,1),size=8)
     cbar = plt.colorbar(im)
     cbar.ax.tick_params(labelsize=8) 
     cbar.ax.set_ylabel("Moran's I statistic",fontsize=12)
     plt.show()
 
 Compare_Correlations(Seurat_Corr,SpaGE_Corr)
-plt.xlabel('Seurat',size=12)
-plt.ylabel('SpaGE',size=12)
+plt.xlabel('Spearman Correlation Seurat',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
 
 Compare_Correlations(Liger_Corr,SpaGE_Corr)
-plt.xlabel('Liger',size=12)
-plt.ylabel('SpaGE',size=12)
+plt.xlabel('Spearman Correlation Liger',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
 
 Compare_Correlations(gimVI_Corr,SpaGE_Corr)
-plt.xlabel('gimVI',size=12)
-plt.ylabel('SpaGE',size=12)
+plt.xlabel('Spearman Correlation gimVI',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
 
 def Correlation_vs_Moran(X,Y):
     fig, ax = plt.subplots(figsize=(4.8, 4.8))
-    ax.scatter(X, Y, s=25)
+    ax.scatter(X, Y, s=1)
     Corr = st.spearmanr(X,Y)[0]
     plt.text(np.mean(plt.gca().get_xlim()),np.min(plt.gca().get_ylim()),'%1.3f'%Corr,color='black',size=9)
     plt.xticks(size=8)
@@ -181,20 +181,20 @@ def Correlation_vs_Moran(X,Y):
 
 Correlation_vs_Moran(Moran_Is,SpaGE_Corr)
 plt.xlabel("Moran's I",size=12)
-plt.ylabel('SpaGE',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
 
 Correlation_vs_Moran(Moran_Is,Seurat_Corr)
 plt.xlabel("Moran's I",size=12)
-plt.ylabel('Seurat',size=12)
+plt.ylabel('Spearman Correlation Seurat',size=12)
 plt.show()
 
 Correlation_vs_Moran(Moran_Is,Liger_Corr)
 plt.xlabel("Moran's I",size=12)
-plt.ylabel('Liger',size=12)
+plt.ylabel('Spearman Correlation Liger',size=12)
 plt.show()
 
 Correlation_vs_Moran(Moran_Is,gimVI_Corr)
 plt.xlabel("Moran's I",size=12)
-plt.ylabel('gimVI',size=12)
+plt.ylabel('Spearman Correlation gimVI',size=12)
 plt.show()
