@@ -46,7 +46,7 @@ for i in Gene_set:
     model_library_size = [True, False]
     
     n_latent = 8
-    kappa = 1
+    kappa = 5
     
     start = tm.time()
     torch.manual_seed(0)
@@ -71,7 +71,7 @@ for i in Gene_set:
     discriminator = Classifier(n_latent, 32, 2, 3, logits=True)
     
     trainer = JVAETrainer(model, discriminator, datasets, 0.95, frequency=1, kappa=kappa)
-    trainer.train()
+    trainer.train(n_epochs=200)
     _,Imputed = trainer.get_imputed_values(normalized=True)
     Imputed = np.reshape(Imputed[:,np.argwhere(i==Common_data.gene_names)[0]],-1)
     Imp_Genes[i] = Imputed
