@@ -14,6 +14,13 @@ Genes_count = np.sum(RNA_data > 0, axis=1)
 RNA_data = RNA_data.loc[Genes_count >=10,:]
 del Genes_count
 
+# filter low quality cells
+meta_data = pd.read_csv('data/Allen_SSp/AllenSSp_metadata.csv',
+                        header=0,sep=',')
+HighQualityCells = meta_data['class_label'] != 'Exclude'
+RNA_data = RNA_data.iloc[:,np.where(HighQualityCells)[0]]
+del meta_data, HighQualityCells
+
 def Log_Norm(x):
     return np.log(((x/np.sum(x))*1000000) + 1)
 
