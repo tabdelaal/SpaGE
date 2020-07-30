@@ -1,5 +1,5 @@
 import os
-os.chdir('/osmFISH_AllenVISp/')
+os.chdir('seqFISH_AllenVISp/')
 
 import numpy as np
 import pandas as pd
