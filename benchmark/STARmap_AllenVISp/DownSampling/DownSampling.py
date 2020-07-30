@@ -75,7 +75,7 @@ Variance.sort_values(ascending=False,inplace=True)
 Variance = Variance.append(pd.Series(0,index=removed_genes))
 
 genes_to_impute = test_set
-for i in [10,30,50,100,200,len(Variance)]:
+for i in [10,30,50,100,200,500,len(Variance)]:
     Imp_New_Genes = pd.DataFrame(np.zeros((Starmap_data.shape[0],len(genes_to_impute))),columns=genes_to_impute)
     
     if(i>=50):
