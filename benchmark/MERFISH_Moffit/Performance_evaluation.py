@@ -72,16 +72,16 @@ ax.boxplot([SpaGE_Corr,Seurat_Corr, Liger_Corr,gimVI_Corr])
 
 y = SpaGE_Corr
 x = np.random.normal(1, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=3, alpha=0.2)
 y = Seurat_Corr
 x = np.random.normal(2, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=3, alpha=0.2)
 y = Liger_Corr
 x = np.random.normal(3, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=3, alpha=0.2)
 y = gimVI_Corr
 x = np.random.normal(4, 0.05, len(y))
-plt.plot(x, y, 'r.', alpha=0.2)
+plt.plot(x, y, 'g.', markersize=3, alpha=0.2)
 
 plt.xticks((1,2,3,4),('SpaGE', 'Seurat', 'Liger','gimVI'),size=12)
 plt.yticks(size=8)
@@ -98,7 +98,7 @@ plt.show()
 
 def Compare_Correlations(X,Y):
     fig, ax = plt.subplots(figsize=(4.5, 4.5))
-    ax.scatter(X, Y, s=25)        
+    ax.scatter(X, Y, s=5)        
     ax.axvline(linestyle='--',color='gray')
     ax.axhline(linestyle='--',color='gray') 
     plt.gca().set_ylim([-0.5,1])
@@ -114,16 +114,16 @@ def Compare_Correlations(X,Y):
 
 
 Compare_Correlations(Seurat_Corr,SpaGE_Corr)
-plt.xlabel('Seurat',size=12)
-plt.ylabel('SpaGE',size=12)
+plt.xlabel('Spearman Correlation Seurat',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
 
 Compare_Correlations(Liger_Corr,SpaGE_Corr)
-plt.xlabel('Liger',size=12)
-plt.ylabel('SpaGE',size=12)
+plt.xlabel('Spearman Correlation Liger',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
 
 Compare_Correlations(gimVI_Corr,SpaGE_Corr)
-plt.xlabel('gimVI',size=12)
-plt.ylabel('SpaGE',size=12)
+plt.xlabel('Spearman Correlation gimVI',size=12)
+plt.ylabel('Spearman Correlation SpaGE',size=12)
 plt.show()
