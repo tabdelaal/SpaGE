@@ -41,10 +41,6 @@ def SpaGE(Spatial_data,RNA_data,n_pv,genes_to_predict=None):
             list of gene names missing from the spatial data, to be predicted 
             from the scRNA-seq data. Default is the set of different genes 
             (columns) between scRNA-seq and spatial data.
-        normalize : bool, default is True 
-            Apply log1p transformation to both datasets, using a scaling factor
-            of 10e06 for scRNA-seq data, and median(cell_count) for spatial 
-            data.
             
         Return
         -------
@@ -63,38 +59,34 @@ def SpaGE(Spatial_data,RNA_data,n_pv,genes_to_predict=None):
                                    index = Spatial_data.index,columns=Spatial_data.columns)
     Common_data = RNA_data_scaled[np.intersect1d(Spatial_data_scaled.columns,RNA_data_scaled.columns)]
     
-    Imp_New_Genes = pd.DataFrame(np.zeros((Spatial_data.shape[0],len(genes_to_predict))),
+    Imp_Genes = pd.DataFrame(np.zeros((Spatial_data.shape[0],len(genes_to_predict))),
                                  columns=genes_to_predict)
     
-    pv_FISH_RNA = PVComputation(
+    pv_Spatial_RNA = PVComputation(
             n_factors = n_pv,
             n_pv = n_pv,
             dim_reduction = 'pca',
             dim_reduction_target = 'pca'
     )
     
-    pv_FISH_RNA.fit(Common_data,Spatial_data_scaled[Common_data.columns])
+    pv_Spatial_RNA.fit(Common_data,Spatial_data_scaled[Common_data.columns])
     
-    S = pv_FISH_RNA.source_components_.T
+    S = pv_Spatial_RNA.source_components_.T
         
-    Effective_n_pv = sum(np.diag(pv_FISH_RNA.cosine_similarity_matrix_) > 0.3)
+    Effective_n_pv = sum(np.diag(pv_Spatial_RNA.cosine_similarity_matrix_) > 0.3)
     S = S[:,0:Effective_n_pv]
     
-    Common_data_t = Common_data.dot(S)
-    FISH_exp_t = Spatial_data_scaled[Common_data.columns].dot(S)
+    Common_data_projected = Common_data.dot(S)
+    Spatial_data_projected = Spatial_data_scaled[Common_data.columns].dot(S)
         
     nbrs = NearestNeighbors(n_neighbors=50, algorithm='auto',
-                            metric = 'cosine').fit(Common_data_t)
-    distances, indices = nbrs.kneighbors(FISH_exp_t)
+                            metric = 'cosine').fit(Common_data_projected)
+    distances, indices = nbrs.kneighbors(Spatial_data_projected)
     
     for j in range(0,Spatial_data.shape[0]):
     
         weights = 1-(distances[j,:][distances[j,:]<1])/(np.sum(distances[j,:][distances[j,:]<1]))
         weights = weights/(len(weights)-1)
-        Imp_New_Genes.iloc[j,:] = np.dot(weights,RNA_data[genes_to_predict].iloc[indices[j,:][distances[j,:] < 1]])
+        Imp_Genes.iloc[j,:] = np.dot(weights,RNA_data[genes_to_predict].iloc[indices[j,:][distances[j,:] < 1]])
         
-    return Imp_New_Genes
-    
-        
-        
-        
+    return Imp_Genes
