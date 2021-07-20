@@ -24,4 +24,4 @@ The 'benchmark' folder contains the scripts to reproduce the results shown in th
 All datasets used are publicly available data, for convenience datasets can be downloaded from Zenodo (https://doi.org/10.5281/zenodo.3967291)
 
 For citation and further information please refer to:
-"SpaGE: Spatial Gene Enhancement using scRNA-seq", [biorxiv](https://www.biorxiv.org/content/10.1101/2020.05.08.084392v1)
+"SpaGE: Spatial Gene Enhancement using scRNA-seq", [NAR](https://academic.oup.com/nar/article/48/18/e107/5909530)
