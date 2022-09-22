@@ -58,6 +58,8 @@ def SpaGE(Spatial_data,RNA_data,n_pv,genes_to_predict=None):
     Spatial_data_scaled = pd.DataFrame(data=st.zscore(Spatial_data,axis=0),
                                    index = Spatial_data.index,columns=Spatial_data.columns)
     Common_data = RNA_data_scaled[np.intersect1d(Spatial_data_scaled.columns,RNA_data_scaled.columns)]
+
+    Y_train = RNA_data[genes_to_predict]
     
     Imp_Genes = pd.DataFrame(np.zeros((Spatial_data.shape[0],len(genes_to_predict))),
                                  columns=genes_to_predict)
@@ -87,6 +89,6 @@ def SpaGE(Spatial_data,RNA_data,n_pv,genes_to_predict=None):
     
         weights = 1-(distances[j,:][distances[j,:]<1])/(np.sum(distances[j,:][distances[j,:]<1]))
         weights = weights/(len(weights)-1)
-        Imp_Genes.iloc[j,:] = np.dot(weights,RNA_data[genes_to_predict].iloc[indices[j,:][distances[j,:] < 1]])
+        Imp_Genes.iloc[j,:] = np.dot(weights,Y_train.iloc[indices[j,:][distances[j,:] < 1]])
         
     return Imp_Genes
